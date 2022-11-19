@@ -7,8 +7,8 @@
     <ProjectGuid>{263A9D73-AC86-4089-B1DF-B8496880C021}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RunningLineLibrary</RootNamespace>
-    <AssemblyName>RunningLineLibrary</AssemblyName>
+    <RootNamespace>MyStringLibrary</RootNamespace>
+    <AssemblyName>MyStringLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

@@ -5,13 +5,12 @@ namespace MyStringLibrary
 {
     public class RunningLine
     {
-        string text;
         public RunningLine()
         {
-            text = null;
+
         }
 
-        protected internal void RunningLineLeft(TextBox textBox1, int ml_sec_SPEED)
+        public void RunningLineLeft(TextBox textBox1, int ml_sec_SPEED)
         {
             for (int q = 0; q < 3; q++)
             {
@@ -30,7 +29,7 @@ namespace MyStringLibrary
             }
         }
 
-        protected internal void RunningLineRight(TextBox textBox1, int ml_sec_SPEED)
+        public void RunningLineRight(TextBox textBox1, int ml_sec_SPEED)
         {
             for (int q = 0; q < 3; q++)
             {
