@@ -1,9 +1,10 @@
 ﻿using System.Text;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MyStringLibrary
 {
-    internal class CheckingString
+    public class CheckingString
     {
         string SetRightCaps_RU;
         string SetRight_RU;
@@ -12,7 +13,7 @@ namespace MyStringLibrary
         string SetDate;
         string SetSpecial_Characters;
 
-        CheckingString()
+        public CheckingString()
         {
             SetRightCaps_RU = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ";
             SetRightCaps_ENG = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
@@ -22,13 +23,32 @@ namespace MyStringLibrary
             SetSpecial_Characters = @",.'"";:\|/{}[]_-+=~`!@#$%^&*()№<>";
         }
 
-        protected internal bool CheckRightName(string text)
+        internal string EditName(string SetAlshebetCaps, string SetAlshebet, string Name)
+        {
+            StringBuilder stringBuilder = new StringBuilder(Name);
+
+            for (int i = 0; i < SetAlshebetCaps.ToString().Length - 1; i++)
+                if (Name[0] == SetAlshebetCaps[i])
+                    break;
+                else if (Name[0] == SetAlshebet[i])
+                {
+                    stringBuilder[0] = SetAlshebetCaps[i];
+                    return stringBuilder.ToString();
+                }
+                else if (i == SetAlshebetCaps.ToString().Length - 2)
+                    return null;
+
+
+            return Name;
+        }
+
+        internal bool CheckRightName_RU(string text)
         {
             if (text == null)
                 return false;
 
-            foreach (int i in text)
-                foreach (int j in SetSpecial_Characters)
+            for (int i = 0; i < text.ToString().Length; i++)
+                for (int j = 0; j < SetSpecial_Characters.ToString().Length; j++)
                     if (text[i] == SetSpecial_Characters[j])
                         return false;
                     else if (text[i] != SetSpecial_Characters[j])
@@ -37,13 +57,14 @@ namespace MyStringLibrary
             return true;
         }
 
-        protected internal string RedactRightName_RU(string text)
+        public string RedactRightName_RU(string text)
         {
             StringBuilder stringBuilder = new StringBuilder(text);
+
             if (text == null)
                 return null;
 
-            if (!CheckRightName(text))
+            if (!CheckRightName_RU(text))
             {
                 MessageBox.Show("Строка не прошла проверку: Специальные символы запрещены",
                     "Ошибка ввода данных",
@@ -52,12 +73,7 @@ namespace MyStringLibrary
                 return null;
             }
 
-            foreach (int i in text)
-                foreach (int j in SetSpecial_Characters)
-                    if (text[0] == SetRightCaps_RU[j])
-                        continue;
-                    else if (text[0] == SetRight_RU[j])
-                        stringBuilder[i] = SetRightCaps_RU[j];
+            text = EditName(SetRightCaps_RU, SetRight_RU, text);
 
             return text;
         }
