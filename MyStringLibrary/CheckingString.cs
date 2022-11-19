@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MyStringLibrary
 {
@@ -37,7 +36,6 @@ namespace MyStringLibrary
                 }
                 else if (i == SetAlshebetCaps.ToString().Length - 2)
                     return null;
-
 
             return Name;
         }
