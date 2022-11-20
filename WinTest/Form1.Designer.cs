@@ -114,7 +114,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            this.comboBox1.SelectedValueChanged += new System.EventHandler(this.comboBox1_selected_changed);
         }
 
         #endregion

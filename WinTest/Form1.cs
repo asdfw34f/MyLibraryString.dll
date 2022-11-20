@@ -33,9 +33,15 @@ namespace WinTest
             if (comboBox1.SelectedIndex == 0)
                 textBox1.Text = checkName.RedactRightName_RU(textBox1.Text);
             else if (comboBox1.SelectedIndex == 1)
-            {
+                textBox1.Text = checkName.RedactRightName_ENG(textBox1.Text);
+        }
 
-            }
+        private void comboBox1_selected_changed(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex != 0)
+                button1.Text = "Check your Name";
+            else 
+                button1.Text = "Проверить ваше Имя";
         }
     }
 }

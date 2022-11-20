@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Windows.Forms;
 
 namespace MyStringLibrary
@@ -9,17 +10,16 @@ namespace MyStringLibrary
         string SetRight_RU;
         string SetRightCaps_ENG;
         string SetRight_ENG;
-        string SetDate;
         string SetSpecial_Characters;
-
+        string SetNumeric;
         public CheckingString()
         {
             SetRightCaps_RU = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ";
             SetRightCaps_ENG = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
             SetRight_RU = SetRightCaps_RU.ToLower();
             SetRight_ENG = SetRightCaps_ENG.ToLower();
-            SetDate = "1234567890.";
             SetSpecial_Characters = @",.'"";:\|/{}[]_-+=~`!@#$%^&*()№<>";
+            SetNumeric = "1234567890";
         }
 
         internal string EditName(string SetAlshebetCaps, string SetAlshebet, string Name)
@@ -40,14 +40,23 @@ namespace MyStringLibrary
             return Name;
         }
 
-        internal bool CheckRightName_RU(string text)
+        internal bool CheckStringSpec_Simbol(string text)
         {
-            if (text == null)
-                return false;
-
             for (int i = 0; i < text.ToString().Length; i++)
                 for (int j = 0; j < SetSpecial_Characters.ToString().Length; j++)
                     if (text[i] == SetSpecial_Characters[j])
+                        return false;
+                    else if (text[i] != SetSpecial_Characters[j])
+                        continue;
+
+            return true;
+        }
+
+        internal bool CheckStringNumbers(string text)
+        {
+            for (int i = 0; i < text.ToString().Length; i++)
+                for (int j = 0; j < SetNumeric.ToString().Length; j++)
+                    if (text[i] == SetNumeric[j])
                         return false;
                     else if (text[i] != SetSpecial_Characters[j])
                         continue;
@@ -62,7 +71,7 @@ namespace MyStringLibrary
             if (text == null)
                 return null;
 
-            if (!CheckRightName_RU(text))
+            if (!CheckStringSpec_Simbol(text) || !CheckStringNumbers(text))
             {
                 MessageBox.Show("Строка не прошла проверку: Специальные символы запрещены",
                     "Ошибка ввода данных",
@@ -72,6 +81,27 @@ namespace MyStringLibrary
             }
 
             text = EditName(SetRightCaps_RU, SetRight_RU, text);
+
+            return text;
+        }
+
+        public string RedactRightName_ENG(string text)
+        {
+            StringBuilder stringBuilder = new StringBuilder(text);
+
+            if (text == null)
+                return null;
+
+            if (!CheckStringSpec_Simbol(text) || !CheckStringNumbers(text))
+            {
+                MessageBox.Show("The string failed validation: Special characters are prohibited",
+                    "Data entry error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return null;
+            }
+
+            text = EditName(SetRightCaps_ENG, SetRight_ENG, text);
 
             return text;
         }
